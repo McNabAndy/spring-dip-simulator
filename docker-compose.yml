@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  simulator:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - ~/.gradle:/home/gradle/.gradle
+    depends_on:
+      - postgres
+      - redis
+    working_dir: /app
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_DB: dip-simulator
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+  redis:
+    image: redis:8.0.2
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+volumes:
+  pgdata:
+  redisdata:
