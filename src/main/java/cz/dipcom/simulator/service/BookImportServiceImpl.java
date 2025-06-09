@@ -36,7 +36,7 @@ public class BookImportServiceImpl implements BookImportService {
             List<BookRecord> bookRecords = objectMapper.readValue(inputStream, typeReference);
 
             bookRecordRepository.saveAll(bookRecords);
-            System.out.println("Was imported: " + bookRecords.size() + " records");
+            System.out.println("Imported: " + bookRecords.size() + " records");
 
         } catch (Exception e){
             throw new RuntimeException(e);
