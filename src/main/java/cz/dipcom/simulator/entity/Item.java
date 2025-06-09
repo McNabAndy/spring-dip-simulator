@@ -1,5 +1,6 @@
 package cz.dipcom.simulator.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +23,7 @@ public class Item {
     private Long id;
 
 
+    @JsonProperty("call_number")
     @ElementCollection
     @CollectionTable( name = "item_call_number",joinColumns =  @JoinColumn(name = "item_id"))
     @Column(name = "call_number")
@@ -34,23 +36,25 @@ public class Item {
     private List<String> contributors = new ArrayList<>();;
 
 
+    @JsonProperty("created_published")
     @ElementCollection
     @CollectionTable(name = "item_created_published", joinColumns = @JoinColumn(name = "item_id"))
     @Column(name = "created_published")
     private List<String> createdPublished = new ArrayList<>();
 
-    @Column(name = "date", length = 10)
+    @Column(name = "date", length = 1000)
     private String date;
+
 
     @ElementCollection
     @CollectionTable(name = "item_format", joinColumns = @JoinColumn(name = "item_id"))
-    @Column(name = "format", length = 50)
+    @Column(name = "format")
     private List<String> format = new ArrayList<>();
 
 
     @ElementCollection
     @CollectionTable(name = "item_language", joinColumns = @JoinColumn(name = "item_id"))
-    @Column(name = "language", length = 10)
+    @Column(name = "language")
     private List<String> language = new ArrayList<>();
 
     @ElementCollection
@@ -61,10 +65,10 @@ public class Item {
 
     @ElementCollection
     @CollectionTable(name = "item_notes", joinColumns = @JoinColumn(name = "item_id"))
-    @Column(name = "notes")
+    @Column(name = "notes", length = 1000)
     private List<String> notes = new ArrayList<>();
 
-    @Column(name = "title")
+    @Column(name = "title", length = 1000)
     private String title;
 
 

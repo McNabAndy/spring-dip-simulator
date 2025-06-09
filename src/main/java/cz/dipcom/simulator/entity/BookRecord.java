@@ -18,13 +18,14 @@ public class BookRecord {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "book_id")
+    private Long bookId;
 
     @JsonProperty("Object_id")
     @Column(name = "object_id", nullable = false, unique = true)
     private String objectId;
 
+    @JsonProperty("access_restricted")
     @Column(name = "access_restricted")
     private boolean accessRestricted;
 
@@ -49,11 +50,13 @@ public class BookRecord {
 
     @ElementCollection
     @CollectionTable(name = "description", joinColumns = @JoinColumn(name = "book_record_id"))
+    @Column(name = "description", length = 1000)
     private List<String> description = new ArrayList<>();
 
     @Column(name = "digitized")
     private boolean digitized;
 
+    @JsonProperty("extract_timestamp")
     @Column(name = "extract_timestamp")
     private String extractTimestamp ;
 
@@ -70,6 +73,7 @@ public class BookRecord {
     @Column(name = "source_url")
     private String sourceUrl ;
 
+    @JsonProperty("image_url")
     @ElementCollection
     @CollectionTable(name = "image_url", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> imageUrl = new ArrayList<>();
@@ -82,6 +86,7 @@ public class BookRecord {
     @CollectionTable(name = "language", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> language = new ArrayList<>();
 
+    @JsonProperty("mime_type")
     @ElementCollection
     @CollectionTable(name = "mime_type", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> mimeType = new ArrayList<>();
@@ -90,34 +95,43 @@ public class BookRecord {
     @CollectionTable(name = "number", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> number = new ArrayList<>();
 
+    @JsonProperty("number_lccn")
     @ElementCollection
     @CollectionTable(name = "number_lccn", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> numberLccn = new ArrayList<>();
 
+    @JsonProperty("number_oclc")
     @ElementCollection
     @CollectionTable(name = "number_oclc", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> numberOclc = new ArrayList<>();
 
+    @JsonProperty("number_source_modified")
     @ElementCollection
     @CollectionTable(name = "number_source_modified", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> numberSourceModified = new ArrayList<>();
 
+    @JsonProperty("online_format")
     @ElementCollection
     @CollectionTable(name = "online_format", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> onlineFormat = new ArrayList<>();
 
+
+    @JsonProperty("original_format")
     @ElementCollection
     @CollectionTable(name = "original_format", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> originalFormat = new ArrayList<>();
 
+    @JsonProperty("other_title")
     @ElementCollection
     @CollectionTable(name = "other_title", joinColumns = @JoinColumn(name = "book_record_id"))
     private List<String> otherTitle = new ArrayList<>();
 
+
     @ElementCollection
     @CollectionTable(name = "partof", joinColumns = @JoinColumn(name = "book_record_id"))
-    private List<String> partOf = new ArrayList<>();
+    private List<String> partof = new ArrayList<>();
 
+    @JsonProperty("shelf_id")
     @Column(name = "shelf_id")
     private String shelfId;
 
@@ -128,7 +142,7 @@ public class BookRecord {
     @Column(name = "timestamp")
     private String timestamp;
 
-    @Column(name = "title")
+    @Column(name = "title", length = 1000)
     private String title;
 
     @Column(name = "type")
@@ -144,10 +158,10 @@ public class BookRecord {
     private Item item;
 
     @OneToMany(mappedBy = "bookRecord", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Resources> resources;
+    private List<Resource> resources;
 
     @OneToMany(mappedBy = "bookRecord",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Segments> segments;
+    private List<Segment> segments;
 
 
 
