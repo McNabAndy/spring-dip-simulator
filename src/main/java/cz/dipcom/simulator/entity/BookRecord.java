@@ -158,10 +158,10 @@ public class BookRecord {
     private Item item;
 
     @OneToMany(mappedBy = "bookRecord", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Resource> resources;
+    private List<Resource> resources = new ArrayList<>();
 
     @OneToMany(mappedBy = "bookRecord",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Segment> segments;
+    private List<Segment> segments = new ArrayList<>();
 
 
 
