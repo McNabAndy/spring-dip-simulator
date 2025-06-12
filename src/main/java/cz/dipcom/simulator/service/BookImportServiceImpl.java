@@ -10,11 +10,16 @@ import cz.dipcom.simulator.entity.Segment;
 import cz.dipcom.simulator.entity.repository.BookRecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.List;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class BookImportServiceImpl implements BookImportService {
@@ -45,7 +50,21 @@ public class BookImportServiceImpl implements BookImportService {
         return bookRecordMapper.toResponseDTO(bookRecord);
     }
 
+    @Override
+    public List<BookRecordResponseDTO> getAllBookRecords(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<BookRecord> pageBookRecords = bookRecordRepository.findAll(pageable);
 
+        return pageBookRecords.getContent().stream()
+                .map(record ->
+                    bookRecordMapper.toResponseDTO(record))
+                .toList();
+    }
+
+    @Override
+    public void deleteBookRecord(Long id) {
+        bookRecordRepository.deleteById(id);
+    }
 
 
     @Transactional
