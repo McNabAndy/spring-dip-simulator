@@ -2,14 +2,19 @@ package cz.dipcom.simulator.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import cz.dipcom.simulator.dto.BookRecordDTO;
 import cz.dipcom.simulator.dto.BookRecordResponseDTO;
 import cz.dipcom.simulator.dto.mapper.BookRecordMapper;
 import cz.dipcom.simulator.entity.BookRecord;
 import cz.dipcom.simulator.entity.Resource;
 import cz.dipcom.simulator.entity.Segment;
 import cz.dipcom.simulator.entity.repository.BookRecordRepository;
+import cz.dipcom.simulator.exception.BookRecordAlreadyExistsException;
+import cz.dipcom.simulator.exception.BookRecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,11 +48,30 @@ public class BookImportServiceImpl implements BookImportService {
 
     }
 
-    @Cacheable(cacheNames = "bookRecord", key = "#id")
+    @Cacheable(cacheNames = "bookRecord", key = "#objectId")
     @Override
-    public BookRecordResponseDTO getBookRecord(Long id) {
-        BookRecord bookRecord = bookRecordRepository.getReferenceById(id);
+    public BookRecordResponseDTO getBookRecord(String objectId) {
+
+        BookRecord bookRecord = bookRecordRepository.findByObjectId(objectId)
+                .orElseThrow(()-> new BookRecordNotFoundException("Book record with Object_id " + objectId + " not found"));
+
         return bookRecordMapper.toResponseDTO(bookRecord);
+    }
+
+    @Override
+    public BookRecordResponseDTO saveBookRecord(BookRecordDTO bookRecordDTO) {
+
+        BookRecord bookRecord = bookRecordMapper.toBookRecord(bookRecordDTO);
+        try{
+            BookRecord savedBookRecord = bookRecordRepository.save(bookRecord);
+            return bookRecordMapper.toResponseDTO(savedBookRecord);
+        } catch (DataIntegrityViolationException e){
+          throw new BookRecordAlreadyExistsException(
+                  "Book record with Object_id: " + bookRecordDTO.getObjectId() + "  already exists");
+        }
+
+
+
     }
 
     @Override
@@ -61,9 +85,13 @@ public class BookImportServiceImpl implements BookImportService {
                 .toList();
     }
 
+    @CacheEvict(cacheNames = "bookRecord", key = "#objectId")
     @Override
-    public void deleteBookRecord(Long id) {
-        bookRecordRepository.deleteById(id);
+    public void deleteBookRecord(String objectId) {
+        BookRecord bookRecord = bookRecordRepository.findByObjectId(objectId)
+                .orElseThrow(() -> new BookRecordNotFoundException("Book record with id " + objectId + " not found"));
+
+            bookRecordRepository.delete(bookRecord);
     }
 
 

@@ -1,5 +1,6 @@
 package cz.dipcom.simulator.controller;
 
+import cz.dipcom.simulator.dto.BookRecordDTO;
 import cz.dipcom.simulator.dto.BookRecordResponseDTO;
 import cz.dipcom.simulator.service.BookImportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,9 @@ public class BookRecordController {
     }
 
 
-    @GetMapping("/{id}")
-    public ResponseEntity<BookRecordResponseDTO> getBookRecords(@PathVariable Long id){
-        return new ResponseEntity<>(bookImportService.getBookRecord(id), HttpStatus.OK);
+    @GetMapping("/{objectId}")
+    public ResponseEntity<BookRecordResponseDTO> getBookRecords(@PathVariable String objectId) {
+        return new ResponseEntity<>(bookImportService.getBookRecord(objectId), HttpStatus.OK);
     }
 
     @GetMapping
@@ -34,9 +35,15 @@ public class BookRecordController {
 
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Map<String, String>> deleteBookRecord(@PathVariable Long id){
-        bookImportService.deleteBookRecord(id);
-        return new ResponseEntity<>(Map.of("message", "Book record with " + id +" was deleted"), HttpStatus.OK);
+    @PostMapping
+    public ResponseEntity<BookRecordResponseDTO> createBookRecord(@RequestBody BookRecordDTO bookRecordDTO){
+        return new ResponseEntity<>(bookImportService.saveBookRecord(bookRecordDTO), HttpStatus.CREATED);
+    }
+
+
+    @DeleteMapping("/{objectId}")
+    public ResponseEntity<Map<String, String>> deleteBookRecord(@PathVariable String objectId){
+        bookImportService.deleteBookRecord(objectId);
+        return new ResponseEntity<>(Map.of("message", "Book record with " + objectId +" was deleted"), HttpStatus.OK);
     }
 }
