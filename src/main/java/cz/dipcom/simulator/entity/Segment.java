@@ -51,7 +51,9 @@ public class Segment {
      * The book record associated with this segment.
      * This is a many-to-one relationship, where a segment is linked to one book record.
      */
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
     @JoinColumn(name = "book_record_id")
     private BookRecord bookRecord;
 }

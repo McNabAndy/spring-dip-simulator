@@ -117,7 +117,9 @@ public class Resource {
      * The book record associated with the resource.
      * This is a many-to-one relationship, where a resource is linked to one book record.
      */
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            fetch = FetchType.EAGER )
     @JoinColumn(name = "book_record_id")
     private BookRecord bookRecord;
 }

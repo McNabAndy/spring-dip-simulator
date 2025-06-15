@@ -1,7 +1,7 @@
 package cz.dipcom.simulator.controller;
 
 import cz.dipcom.simulator.dto.BookRecordDTO;
-import cz.dipcom.simulator.dto.BookRecordResponseDTO;
+import cz.dipcom.simulator.dto.response.BookRecordResponseDTO;
 import cz.dipcom.simulator.service.BookImportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

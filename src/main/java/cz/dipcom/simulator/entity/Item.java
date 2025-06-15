@@ -110,8 +110,11 @@ public class Item {
      * The associated book record for this item, mapped to the "bookRecord" field in the BookRecord entity.
      * This is a bidirectional relationship, with the BookRecord entity holding the reference to this item.
      */
-    @OneToOne(mappedBy = "item", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    BookRecord bookRecord;
+    @OneToOne(
+            mappedBy = "item",
+            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            fetch = FetchType.EAGER)
+    private BookRecord bookRecord;
 
 
 }

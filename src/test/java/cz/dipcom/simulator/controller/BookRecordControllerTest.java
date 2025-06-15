@@ -3,7 +3,7 @@ package cz.dipcom.simulator.controller;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.dipcom.simulator.dto.BookRecordDTO;
-import cz.dipcom.simulator.dto.BookRecordResponseDTO;
+import cz.dipcom.simulator.dto.response.BookRecordResponseDTO;
 import cz.dipcom.simulator.exception.BookRecordAlreadyExistsException;
 import cz.dipcom.simulator.exception.BookRecordNotFoundException;
 import cz.dipcom.simulator.service.BookImportService;

@@ -3,7 +3,7 @@ package cz.dipcom.simulator.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.dipcom.simulator.dto.BookRecordDTO;
-import cz.dipcom.simulator.dto.BookRecordResponseDTO;
+import cz.dipcom.simulator.dto.response.BookRecordResponseDTO;
 import cz.dipcom.simulator.dto.mapper.BookRecordMapper;
 import cz.dipcom.simulator.entity.BookRecord;
 import cz.dipcom.simulator.entity.Resource;

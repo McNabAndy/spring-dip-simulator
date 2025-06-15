@@ -1,7 +1,7 @@
 package cz.dipcom.simulator.service;
 
 import cz.dipcom.simulator.dto.BookRecordDTO;
-import cz.dipcom.simulator.dto.BookRecordResponseDTO;
+import cz.dipcom.simulator.dto.response.BookRecordResponseDTO;
 
 
 import java.util.List;

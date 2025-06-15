@@ -1,4 +1,4 @@
-package cz.dipcom.simulator.dto;
+package cz.dipcom.simulator.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

@@ -1,9 +1,8 @@
 package cz.dipcom.simulator.service;
 
-import aj.org.objectweb.asm.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import cz.dipcom.simulator.dto.BookRecordDTO;
-import cz.dipcom.simulator.dto.BookRecordResponseDTO;
+import cz.dipcom.simulator.dto.response.BookRecordResponseDTO;
 import cz.dipcom.simulator.dto.mapper.BookRecordMapper;
 import cz.dipcom.simulator.entity.BookRecord;
 import cz.dipcom.simulator.entity.repository.BookRecordRepository;
@@ -13,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -22,8 +20,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

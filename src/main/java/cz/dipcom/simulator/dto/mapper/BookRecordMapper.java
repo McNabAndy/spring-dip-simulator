@@ -1,7 +1,7 @@
 package cz.dipcom.simulator.dto.mapper;
 
 import cz.dipcom.simulator.dto.BookRecordDTO;
-import cz.dipcom.simulator.dto.BookRecordResponseDTO;
+import cz.dipcom.simulator.dto.response.BookRecordResponseDTO;
 import cz.dipcom.simulator.entity.BookRecord;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
