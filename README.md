@@ -21,7 +21,10 @@ docker-compose up --build
 ## Nastavení importu dat do databáze
 V `supervisord.conf` je aktuálně při spuštění nastaven argument `--import=true` který zajistí import dat do databáze.
 
+
+
 ## API
+K testovaní API lze vyuřít kolekci postmena ve složce [doc/postman/](doc/postman)
 
 GET - zobrazení detailu knihy dle Object_id
 ```
