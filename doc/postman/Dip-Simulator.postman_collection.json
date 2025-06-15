@@ -1,0 +1,88 @@
+{
+	"info": {
+		"_postman_id": "90292710-64ac-4d4a-90d5-54d894155caf",
+		"name": "Dip Simulator",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34253132"
+	},
+	"item": [
+		{
+			"name": "Get Book by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books/17017123",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books",
+						"17017123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Book",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Book By Id",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Create new BookRecord",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"Object_id\": \"111222333445\",\r\n    \"aka\": [\r\n        \"Test AKA 1\",\r\n        \"Test AKA 2\"\r\n    ],\r\n    \"campaigns\": [\r\n        \"Test Campaign\"\r\n    ],\r\n    \"contributor\": [\r\n        \"Test Contributor\"\r\n    ],\r\n    \"date\": \"2025-06-14\",\r\n    \"dates\": [\r\n        \"2025-06-14\",\r\n        \"2025-06-13\"\r\n    ],\r\n    \"description\": [\r\n        \"Test description\"\r\n    ],\r\n    \"digitized\": true,\r\n    \"group\": [\r\n        \"Test Group\"\r\n    ],\r\n    \"hassegments\": true,\r\n    \"index\": 42,\r\n    \"language\": [\r\n        \"en\",\r\n        \"cs\"\r\n    ],\r\n    \"number\": [\r\n        \"12345\"\r\n    ],\r\n    \"partof\": [\r\n        \"Test Part Of\"\r\n    ],\r\n    \"site\": [\r\n        \"Test Site\"\r\n    ],\r\n    \"timestamp\": \"2025-06-14T12:00:00Z\",\r\n    \"title\": \"Test Title\",\r\n    \"type\": \"Test Type\",\r\n    \"url\": \"http://example.com/test\",\r\n    \"access_restricted\": false,\r\n    \"extract_timestamp\": \"2025-06-14T12:00:00Z\",\r\n    \"id\": \"http://source.example.com/id/111222333444\",\r\n    \"image_url\": [\r\n        \"http://example.com/image1.jpg\",\r\n        \"http://example.com/image2.jpg\"\r\n    ],\r\n    \"mime_type\": [\r\n        \"application/json\",\r\n        \"application/pdf\"\r\n    ],\r\n    \"number_lccn\": [\r\n        \"lccn-123\"\r\n    ],\r\n    \"number_oclc\": [\r\n        \"oclc-456\"\r\n    ],\r\n    \"number_source_modified\": [\r\n        \"mod-789\"\r\n    ],\r\n    \"online_format\": [\r\n        \"online-test\"\r\n    ],\r\n    \"original_format\": [\r\n        \"original-test\"\r\n    ],\r\n    \"other_title\": [\r\n        \"Other Test Title\"\r\n    ],\r\n    \"shelf_id\": \"Shelf-123\",\r\n    \"item\": {\r\n        \"contributors\": [\r\n            \"Item Contributor\"\r\n        ],\r\n        \"date\": \"2025-06-14\",\r\n        \"format\": [\r\n            \"FormatTest\"\r\n        ],\r\n        \"language\": [\r\n            \"en\"\r\n        ],\r\n        \"medium\": [\r\n            \"Digital\"\r\n        ],\r\n        \"notes\": [\r\n            \"Also available in digital form.\"\r\n        ],\r\n        \"title\": \"Item Test Title\",\r\n        \"call_number\": [\r\n            \"Call-123\"\r\n        ],\r\n        \"created_published\": [\r\n            \"Test Publisher, 2025\"\r\n        ]\r\n    },\r\n    \"resources\": [\r\n        {\r\n            \"files\": 10,\r\n            \"image\": \"http://example.com/res/image.jpg\",\r\n            \"pdf\": \"http://example.com/res/file.pdf\",\r\n            \"search\": \"http://example.com/res/search\",\r\n            \"segments\": 5,\r\n            \"url\": \"http://example.com/res\",\r\n            \"version\": 1,\r\n            \"djvu_text_file\": \"http://example.com/res/djvu.txt\",\r\n            \"fulltext_derivative\": \"http://example.com/res/derivative.txt\",\r\n            \"fulltext_file\": \"http://example.com/res/fulltext.txt\",\r\n            \"paprika_resource_path\": \"/path/to/paprika\",\r\n            \"representative_index\": 0\r\n        }\r\n    ],\r\n    \"segments\": [\r\n        {\r\n            \"count\": 3,\r\n            \"link\": \"http://example.com/segment/link\",\r\n            \"url\": \"http://example.com/segment\"\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/books",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
