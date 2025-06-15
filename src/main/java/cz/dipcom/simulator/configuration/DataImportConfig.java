@@ -61,15 +61,19 @@ public class DataImportConfig {
     public CommandLineRunner commandLineRunner() {
         return args -> {
             if (importEnabled) {
-                long count = bookRecordRepository.count();
-                if (count == 0) {
-                    System.out.println("No book records found, running import...");
-                    bookImportService.importAllBooks();
-                } else {
-                    System.out.println("Book records found, deleting all old data, please wait...");
-                    bookRecordRepository.deleteAll();
-                    System.out.println("Book records is empty, running new import...");
-                    bookImportService.importAllBooks();
+                try {
+                    long count = bookRecordRepository.count();
+                    if (count == 0) {
+                        System.out.println("No book records found, running import...");
+                        bookImportService.importAllBooks();
+                    } else {
+                        System.out.println("Book records found, deleting all old data, please wait...");
+                        bookRecordRepository.deleteAll();
+                        System.out.println("Book records is empty, running new import...");
+                        bookImportService.importAllBooks();
+                    }
+                } catch (Exception e) {
+                    System.out.println("Error importing book records: " + e.getMessage());
                 }
             }
 
