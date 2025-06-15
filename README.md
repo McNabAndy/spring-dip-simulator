@@ -24,7 +24,7 @@ V `supervisord.conf` je aktuálně při spuštění nastaven argument `--import=
 
 
 ## API
-K testovaní API lze vyuřít kolekci postmena ve složce [doc/postman/](doc/postman)
+K testovaní API lze využít kolekci Postmana ve složce [doc/postman/](doc/postman)
 
 GET - zobrazení detailu knihy dle Object_id
 ```
