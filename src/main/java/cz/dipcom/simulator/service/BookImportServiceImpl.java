@@ -24,19 +24,39 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.InputStream;
 import java.util.List;
 
-import static java.util.stream.Collectors.toList;
-
+/**
+ * BookImportServiceImpl is a service implementation that handles business logic related to book records.
+ * It provides functionality to import, retrieve, save, and delete book records. The service interacts with
+ * the BookRecordRepository and uses a custom mapper for converting between DTOs and entities.
+ */
 @Service
 public class BookImportServiceImpl implements BookImportService {
 
-
+    /**
+     * The repository for performing CRUD operations on book records.
+     */
     private final BookRecordRepository bookRecordRepository;
 
+
+    /**
+     * The ObjectMapper used for converting JSON data to Java objects.
+     */
     private final ObjectMapper objectMapper;
 
 
-    private BookRecordMapper bookRecordMapper;
+    /**
+     *  The mapper used for converting between BookRecordDTO and BookRecord entities.
+     */
+    private final BookRecordMapper bookRecordMapper;
 
+
+    /**
+     * Constructor for initializing the BookImportServiceImpl with the required dependencies.
+     *
+     * @param theBookRecordRepository the repository for performing CRUD operations on book records
+     * @param theObjectMapper the ObjectMapper used for converting JSON data to Java objects
+     * @param theBookRecordMapper the mapper used for converting between BookRecordDTO and BookRecord entities
+     */
     @Autowired
     public BookImportServiceImpl(BookRecordRepository theBookRecordRepository,
                                  ObjectMapper theObjectMapper, BookRecordMapper theBookRecordMapper
@@ -44,10 +64,17 @@ public class BookImportServiceImpl implements BookImportService {
         bookRecordRepository = theBookRecordRepository;
         objectMapper = theObjectMapper;
         bookRecordMapper = theBookRecordMapper;
-
-
     }
 
+
+
+    /**
+     * Retrieves a specific book record by its object ID.
+     *
+     * @param objectId the unique identifier for the book record
+     * @return a {@link BookRecordResponseDTO} containing the details of the requested book record
+     * @throws BookRecordNotFoundException if the book record with the given object ID does not exist
+     */
     @Cacheable(cacheNames = "bookRecord", key = "#objectId")
     @Override
     public BookRecordResponseDTO getBookRecord(String objectId) {
@@ -58,6 +85,15 @@ public class BookImportServiceImpl implements BookImportService {
         return bookRecordMapper.toResponseDTO(bookRecord);
     }
 
+
+
+    /**
+     * Saves a new book record to the system.
+     *
+     * @param bookRecordDTO the data transfer object (DTO) containing the book record's information
+     * @return a {@link BookRecordResponseDTO} containing the saved book record details
+     * @throws BookRecordAlreadyExistsException if a book record with the same object ID already exists
+     */
     @Override
     public BookRecordResponseDTO saveBookRecord(BookRecordDTO bookRecordDTO) {
 
@@ -69,11 +105,17 @@ public class BookImportServiceImpl implements BookImportService {
           throw new BookRecordAlreadyExistsException(
                   "Book record with Object_id: " + bookRecordDTO.getObjectId() + "  already exists");
         }
-
-
-
     }
 
+
+
+    /**
+     * Retrieves all book records, with pagination support.
+     *
+     * @param page the page number to retrieve
+     * @param size the number of records per page
+     * @return a list of {@link BookRecordResponseDTO} containing details of the retrieved book records
+     */
     @Override
     public List<BookRecordResponseDTO> getAllBookRecords(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -85,6 +127,14 @@ public class BookImportServiceImpl implements BookImportService {
                 .toList();
     }
 
+
+
+    /**
+     * Deletes a specific book record by its object ID.
+     *
+     * @param objectId the unique identifier of the book record to delete
+     * @throws BookRecordNotFoundException if the book record with the given object ID does not exist
+     */
     @CacheEvict(cacheNames = "bookRecord", key = "#objectId")
     @Override
     public void deleteBookRecord(String objectId) {
@@ -95,6 +145,12 @@ public class BookImportServiceImpl implements BookImportService {
     }
 
 
+
+    /**
+     * Imports all book records from a predefined JSON file.
+     * This method reads the JSON data, converts it into book records, and saves them to the database.
+     * It also processes any related resources and segments associated with the books.
+     */
     @Transactional
     @Override
     public void importAllBooks() {
@@ -116,6 +172,13 @@ public class BookImportServiceImpl implements BookImportService {
     }
 
 
+    // A helper method that associates resources and segments with their corresponding book records.
+
+    /**
+     * Associates resources and segments with the corresponding book records.
+     *
+     * @param bookRecords the list of book records to process
+     */
     private void addResourceAndSegments(List<BookRecord> bookRecords) {
         for (BookRecord theBookRecord : bookRecords) {
             if (theBookRecord.getResources() != null) {

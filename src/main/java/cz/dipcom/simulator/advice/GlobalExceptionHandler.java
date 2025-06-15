@@ -8,9 +8,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+/**
+ * GlobalExceptionHandler is a controller advice that handles specific exceptions
+ * thrown by the application. It catches exceptions related to book record processing
+ * and returns appropriate HTTP responses with error details.
+ */
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
+
+    /**
+     * Handles the exception when a book record is not found.
+     *
+     * @param e the exception that occurred (BookRecordNotFoundException)
+     * @return a ResponseEntity containing an ApiErrorDTO with error details
+     */
     @ExceptionHandler(BookRecordNotFoundException.class)
     public ResponseEntity<ApiErrorDTO> handleBookRecordNotFoundException(RuntimeException e){
 
@@ -24,6 +38,12 @@ public class GlobalExceptionHandler {
     }
 
 
+    /**
+     * Handles the exception when a book record already exists.
+     *
+     * @param e the exception that occurred (BookRecordAlreadyExistsException)
+     * @return a ResponseEntity containing an ApiErrorDTO with error details
+     */
     @ExceptionHandler(BookRecordAlreadyExistsException.class)
     public ResponseEntity<ApiErrorDTO> handleBookRecordAlreadyExistException(RuntimeException e){
 

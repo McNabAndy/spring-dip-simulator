@@ -13,10 +13,25 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.time.Duration;
 
+
+
+/**
+ * RedisConfig is a configuration class that sets up Redis caching for the application.
+ * It enables caching and configures both the RedisTemplate for interacting with Redis
+ * and the RedisCacheManager to manage cache settings.
+ */
 @Configuration
 @EnableCaching
 public class RedisConfig {
 
+
+    /**
+     * Configures and provides a RedisTemplate to interact with Redis.
+     * The RedisTemplate is used for serializing keys as strings and values as JSON objects.
+     *
+     * @param connectionFactory the RedisConnectionFactory used to create the Redis connection
+     * @return a configured RedisTemplate instance
+     */
     @Bean
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -27,6 +42,14 @@ public class RedisConfig {
     }
 
 
+    /**
+     * Configures and provides a RedisCacheManager for managing Redis-based caching.
+     * This manager uses a custom cache configuration with a time-to-live (TTL) of 3 minutes
+     * and disables caching for null values. Values are serialized using JSON.
+     *
+     * @param connectionFactory the RedisConnectionFactory used to create the Redis connection
+     * @return a configured RedisCacheManager instance
+     */
     @Bean
     public RedisCacheManager cacheManager(RedisConnectionFactory connectionFactory) {
 
