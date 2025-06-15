@@ -290,7 +290,7 @@ public class BookRecord {
      * The item associated with the book record.
      */
     @OneToOne(
-            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id")
     private Item item;
@@ -301,7 +301,7 @@ public class BookRecord {
      */
     @OneToMany(
             mappedBy = "bookRecord",
-            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private List<Resource> resources = new ArrayList<>();
 
@@ -311,7 +311,7 @@ public class BookRecord {
      */
     @OneToMany(
             mappedBy = "bookRecord",
-            cascade = {CascadeType.PERSIST, CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
+            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER)
     private List<Segment> segments = new ArrayList<>();
 
